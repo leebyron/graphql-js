@@ -19,9 +19,7 @@ export default function mapAsyncIterator<T, U>(
   iterable: AsyncIterable<T>,
   callback: (value: T) => U
 ): AsyncIterator<U> {
-  // Fixes a temporary issue with Regenerator/Babel
-  // https://github.com/facebook/regenerator/pull/290
-  const iterator = iterable.next ? (iterable: any) : getAsyncIterator(iterable);
+  const iterator = getAsyncIterator(iterable);
 
   function mapResult(result) {
     return result.done ?
